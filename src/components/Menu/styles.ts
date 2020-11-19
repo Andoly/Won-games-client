@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
+import theme from 'styles/theme'
 
 export const Wrapper = styled.menu`
   ${({ theme }) => css`
@@ -19,7 +20,8 @@ export const IconWrapper = styled.div`
 `
 export const LogoWrapper = styled.div`
   ${media.lessThan('medium')`
-    position: absolute;
+  position: fixed;
+    z-index: ${theme.layers.menu};
     left: 50%;
     transform: translateX(-50%)
   `}
