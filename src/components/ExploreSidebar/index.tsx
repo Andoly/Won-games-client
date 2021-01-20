@@ -22,10 +22,23 @@ type Values = {
 export type ExploreSidebarProps = {
   items: ItemProps[]
   initialValues?: Values
+  onFilter: (values: Values) => void
 }
 
-const ExploreSidebar = ({ items, initialValues = {} }: ExploreSidebarProps) => {
+const ExploreSidebar = ({
+  items,
+  initialValues = {},
+  onFilter
+}: ExploreSidebarProps) => {
   const [values, setValues] = useState(initialValues)
+
+  const handleFilter = () => {
+    onFilter(values)
+  }
+  const handleChange = (name: string, value: string | boolean) => {
+    setValues((old) => ({ ...old, [name]: value }))
+  }
+
   return (
     <S.Wrapper>
       {items.map((item) => (
@@ -41,6 +54,7 @@ const ExploreSidebar = ({ items, initialValues = {} }: ExploreSidebarProps) => {
                 label={field.label}
                 labelFor={field.name}
                 isChecked={!!values[field.name]}
+                onCheck={(v) => handleChange(field.name, v)}
               />
             ))}
           {item.type === 'radio' &&
@@ -53,11 +67,12 @@ const ExploreSidebar = ({ items, initialValues = {} }: ExploreSidebarProps) => {
                 label={field.label}
                 labelFor={field.name}
                 defaultChecked={field.name === values[item.name]}
+                onChange={() => handleChange(item.name, field.name)}
               />
             ))}
         </div>
       ))}
-      <Button fullWidth size="medium">
+      <Button fullWidth size="medium" onClick={handleFilter}>
         Filter
       </Button>
     </S.Wrapper>
