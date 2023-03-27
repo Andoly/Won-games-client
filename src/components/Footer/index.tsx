@@ -1,10 +1,12 @@
-import Logo from 'components/Logo'
 import Heading from 'components/Heading'
-import * as S from './styles'
+import Logo from 'components/Logo'
 import Link from 'next/link'
+import * as S from './styles'
 
-const Footer = () => (
-  <S.Wrapper>
+const Footer = () => {
+  const date = new Date();
+  return (
+      <S.Wrapper>
     <Logo color="black" />
     <S.Content>
       <S.Column>
@@ -80,8 +82,9 @@ const Footer = () => (
       </S.Column>
     </S.Content>
 
-    <S.Copyright>Won Games 2020 © All rights reserved.</S.Copyright>
+    <S.Copyright>Won Games {date.getFullYear()} © All rights reserved.</S.Copyright>
   </S.Wrapper>
-)
+  )
+}
 
 export default Footer
